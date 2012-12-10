@@ -233,6 +233,7 @@ inputLink='' # address of song (if $isFile == 'no')
 #    fi
 #done
 #-------------------------------------------------------------------------------
+echo "=========================================================================="
 arg=1
 while [ "$arg" -le "$#" ]
 do
@@ -242,13 +243,16 @@ do
             isFile='yes'
             arg=$((arg + 1))
             inputFile=$(echo "$@" | cut -d ' ' -f "$arg")
+            echo "Get link song from file $inputFile"
         elif [ "$i" == '-d' ] ; then
             arg=$((arg + 1))
             desDir=$(echo "$@" | cut -d ' ' -f "$arg")
         elif [ "$i" == '-s' ] ; then
             separate='yes'
+            echo 'Each album will be saved separate directory'
         else
             inputLink="$i"
+            echo "Get song from $inputLink"
         fi
     fi
     arg=$((arg + 1))
@@ -265,7 +269,7 @@ fi
 # go to destination directory
 if [ -d "desDir" ] ; then
     if cd "$desDir" ; then
-        echo "Current directory is $desDir"
+        echo "Saving to $desDir"
     fi
 else
     if mkdir -p "$desDir" ; then
@@ -273,7 +277,7 @@ else
     else
         echo "Cannot create $desDir!"
     fi
-    echo "Current directory is $desDir"
+    echo "Saving to $desDir"
 fi
 
 # Get link
