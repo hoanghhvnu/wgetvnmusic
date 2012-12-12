@@ -3,7 +3,7 @@
 # Written by: Luoi ST
 # Last modified Dec 12,2012 19:47:00
 HELP="Usage:\n
-$0 <URL_link> | -f <input_file> [option]\n
+$0 [option] <URL_link> | -f <input_file>\n
 option:\n
 -d <destination_directory_to_save>\n
 -s: Put each album to one directory\n
