@@ -16,5 +16,5 @@ code: chmod +x wgetvnmusic.sh
 : URL link is address to listen music
 -f <file1>: content of file1 is many URL link, separate by linefeed
 option:
--d <desDir>: songs will be saved to directory desDir, if not exist, create it.
+-t <desDir>: songs will be saved to directory desDir, if not exist, create it.
 -s : option tell that put each album to one directory named by album name.

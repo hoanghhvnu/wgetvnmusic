@@ -13,10 +13,11 @@ option:\n
 function _get_tui {
     #$1 is link song or album
     #$2=['yes' | 'no'] is option tell put each album to one directory
+    #$3=[ 'no' | 'verbose' ]
     change_dir='no'
     link_type=$(echo $1 | cut -d '/' -f4 | cut -c6) # song is 'M', album is 'L'
     # Create or change to sub-directory
-    if [ "$2" == 'yes' && "$link_type" == 'L' ]; then
+    if [ "$2" == 'yes' -a "$link_type" == 'L' ]; then
         album_name=$(wget -q -O - $1 |\
 sed '/<meta content=\"nghe/s/\(<meta content=\"nghe\)/\n\1/g;s/,/\n/g' |\
 grep '<meta content=\"nghe'| cut -c30- | tr ' ' '_' | sed 's/_$//g')
@@ -36,7 +37,7 @@ grep 'key2' | uniq)
 grep 'list2' | uniq)
     fi
     #Get location to download
-    list_location=$(wget -q -O - $link |\
+    list_location=$(wget -q -O - $link_xml |\
 sed '/<location>/s/\(<location>\)/\n\1/g;s/\]\]/\n/g'  | grep '<location>' |\
 cut -d '[' -f3)
     sum_song=$(echo $list_location | tr ' ' '\n' | wc -l)
@@ -44,8 +45,12 @@ cut -d '[' -f3)
     progress=1
     echo $list_location | tr ' ' '\n' | while read location
     do
-        echo "Downloading [progress/$sum_song]"
-        wget -q $location
+        echo "Downloading [$progress/$sum_song]"
+        if [ "$3" == 'verbose' ]; then
+            wget $location
+        else
+            wget -q $location
+        fi
         progress=$(($progress + 1))
     done
     [ "$change_dir" == 'yes' ] && cd ..
@@ -55,6 +60,7 @@ cut -d '[' -f3)
 function _get_so {
     #$1 is link song or album
     #$2=['yes' | 'no' ] is option tell put each album to one directory
+    #$3=[ 'no' | 'verbose' ]
     change_dir='no'
     link_type=$(echo $1 | cut -d '/' -f4) #song:'nghe-nhac', album:'nghe-album'
     # Create or change to sub-directory
@@ -98,7 +104,11 @@ cut -d '/' -f5 | cut -d '.' -f1)
         artist_name=$(echo $list_artist | cut -d ' ' -f $match_info|\
 cut -d '/' -f5 | cut -d '.' -f1)
         file_name="$song_name-$artist_name"
-        wget -q -O "$file_name.mp3" $location
+        if [ "$3" == 'verbose' ]; then
+            wget -O "$file_name.mp3" $location
+        else
+            wget -q -O "$file_name.mp3" $location
+        fi
         match_info=$(($match_info+1))
     done
     [ "$change_dir" == 'yes' ] && cd ..
@@ -108,6 +118,7 @@ cut -d '/' -f5 | cut -d '.' -f1)
 function _get_zing {
     #$1 is link song or album
     #$2=['yes' | 'no' ] is option tell put each album to one directory
+    #$3=[ 'no' | 'verbose' ]
     change_dir='no'
     link_type=$(echo $1 | cut -d '/' -f4) #song is 'bai-hat', album is 'album'
     # Create or change to sub-directory
@@ -130,7 +141,11 @@ grep 'download/song' | uniq)
     do
         echo -e "Downloading ($progress/$sum_song)"
         song_name=$(echo $location | cut -d '/' -f6)
-        wget -q -O "$song_name.mp3" $location
+        if [ "$3" == 'verbose' ]; then
+            wget -O "$song_name.mp3" $location
+        else
+            wget -q -O "$song_name.mp3" $location
+        fi
         progress=$(($progress + 1))
     done
     [ "$change_dir" == 'yes' ] && cd ..
@@ -141,11 +156,11 @@ function _solve_link {
     what_site=$(echo $1 | cut -d '/' -f3)
     case "$what_site" in
         'mp3.zing.vn')
-            _get_zing $1 $separate;;
+            _get_zing $1 $separate $verbose;;
         'nhacso.net')
-            _get_so $1 $separate;;
+            _get_so $1 $separate $verbose;;
         'www.nhaccuatui.com')
-            _get_tui $1 $separate;;
+            _get_tui $1 $separate $verbose;;
         *)
             echo "We do not support download song for this site: $what_site";;
     esac
@@ -159,6 +174,7 @@ input_file='' # address of file
 des_dir='.' # directory save songs
 separate='no' # each album in new directory (auto create)
 input_link='' # address of song (if $is_file == 'no')
+verbose='no'
 echo "========================================================================="
 count=1
 while [ "$count" -le "$#" ]
@@ -172,12 +188,14 @@ do
             [ ! -f "$input_file" ] && echo "File \"$input_file\"\
 not exist, exit script" && exit 2
             echo "Get link song from file \"$input_file\"";;
-        '-d')
+        '-t')
             count=$((count + 1))
             des_dir=$(echo "$@" | cut -d ' ' -f "$count");;
         '-s')
             separate='yes'
             echo 'Each album will be saved separate directory';;
+        '-v')
+            verbose='verbose';;
         *)
             input_link="$arg"
             echo "Get song from link \"$input_link\"";;
@@ -193,7 +211,6 @@ elif mkdir -p "$des_dir"; then
 else
     echo -e "Cannot create $des_dir!\n Saving to `pwd`"
 fi
-#fi
 # Get link
 if [ "$is_file" == "yes" ]; then
     sum_line=$(echo $content_file | tr ' ' '\n' | wc -l)
