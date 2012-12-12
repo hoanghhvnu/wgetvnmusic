@@ -226,3 +226,4 @@ else
     _solve_link "$input_link"
 fi
 echo 'Download complete!'
+exit 0
