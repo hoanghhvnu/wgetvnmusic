@@ -6,7 +6,8 @@ HELP="Usage:\n
 $0 <URL_link> | -f <input_file> [option]\n
 option:\n
 -d <destination_directory_to_save>\n
--s: Put each album to one directory\n"
+-s: Put each album to one directory\n
+-v: Verbose"
 # Define method
 #===============================================================================
 # Script download songs from nhaccuatui.com
