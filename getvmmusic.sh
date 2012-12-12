@@ -2,15 +2,18 @@
 # Download songs from 3 site: mp3.zing.vn; nhacso.net; nhaccuatui.com
 # Written by: Luoi ST
 # Last modified Dec 12,2012 08:00:00
-
+HELP="Usage:\n
+$0 <URL_link> | -f <input_file> [option]\n
+option:\n
+-d <destination_directory_to_save>\n
+-s: Put each album to one directory\n"
 #Define method
 #===============================================================================
 # Script download songs from nhaccuatui.com
-function _get_tui{
+function _get_tui {
     #$1 is link song or album
     #$2=['yes' | 'no'] is option tell put each album to one directory
-
-    CHANGE_DIR='no'
+    change_dir='no'
     #Check link type (a song or an album)
     link_type=$(echo $1 | cut -d '/' -f4 | cut -c6) # song is 'M', album is 'L'
 
@@ -20,8 +23,8 @@ function _get_tui{
 sed '/<meta content=\"nghe/s/\(<meta content=\"nghe\)/\n\1/g;s/,/\n/g' |\
 grep '<meta content=\"nghe'| cut -c30- | tr ' ' '_' | sed 's/_$//g')
         # Go to sub-directory
-        [ -d "$album_name" ] && cd "$album_name" && CHANGE_DIR='yes' ||\
-         mkdir "$album_name" && cd "$album_name" && CHANGE_DIR='yes'
+        ( [ -d "$album_name" ] && cd "$album_name" && change_dir='yes' ) ||\
+        ( mkdir "$album_name" && cd "$album_name" && change_dir='yes' )
     fi
 
     #Get XML
@@ -48,16 +51,16 @@ cut -d '[' -f3)
         progress=$(($progress + 1))
     done
 
-    [ "$CHANGE_DIR" == 'yes' ] && cd ..
+    [ "$change_dir" == 'yes' ] && cd ..
 } # end method _get_tui
 
 #=======================================================================
 # Script download songs from nhacso.net
-function _get_so{
+function _get_so {
     #$1 is link song or album
     #$2=['yes' | 'no' ] is option tell put each album to one directory
 
-    CHANGE_DIR='no'
+    change_dir='no'
     link_type=$(echo $1 | cut -d '/' -f4) #song:'nghe-nhac', album:'nghe-album'
 
     # Create or change to sub-directory
@@ -68,8 +71,8 @@ function _get_so{
 sed '/<meta name=\"keywords/s/\(<meta name=\"keywords\)/\n\1/g;s/,/\n/g' |\
 grep  '<meta name=\"keywords' | cut -d '"' -f4 | tr ' ' '_')
             # Go to sub-directory
-            [ -d "$album_name" ] && cd "$album_name" && CHANGE_DIR='yes' |\'
-            mkdir "$album_name" && cd "$album_name" && CHANGE_DIR='yes'
+            ( [ -d "$album_name" ] && cd "$album_name" && change_dir='yes' ) ||\
+            ( mkdir "$album_name" && cd "$album_name" && change_dir='yes' )
         fi
     fi
 
@@ -105,24 +108,23 @@ cut -d '/' -f5 | cut -d '.' -f1)
         match_info=$(($match_info+1))
     done
 
-    [ "$CHANGE_DIR" == 'yes' ] && cd ..
+    [ "$change_dir" == 'yes' ] && cd ..
 } # end method _get_so
 
 #=======================================================================
 # Script download songs from mp3.zing.vn
-function _get_zing{
+function _get_zing {
     #$1 is link song or album
-    #$2=['yes' | 'no' ] is option tell put each album to one directory, 
-
-    CHANGE_DIR='no'
+    #$2=['yes' | 'no' ] is option tell put each album to one directory
+    change_dir='no'
     link_type=$(echo $1 | cut -d '/' -f4) #song is 'bai-hat', album is 'album'
 
     # Create or change to sub-directory
-    if [ "$2" == 'yes' && "$link_type" == 'album']; then
-            album_name=$(echo $1 | cut -d '/' -f5)
-            # Go to sub-directory
-            [ -d "$album_name" ] && cd "$album_name" && CHANGE_DIR='yes' ||\
-            mkdir "$album_name" && cd "$album_name" && CHANGE_DIR='yes'
+    if [ "$2" == 'yes' -a "$link_type" == 'album' ]; then
+        album_name=$(echo $1 | cut -d '/' -f5)
+        # Go to sub-directory
+        ( [ -d "$album_name" ] && cd "$album_name" && change_dir='yes' ) ||\
+        ( mkdir "$album_name" && cd "$album_name" && change_dir='yes' )
     fi
 
     list_location=$(wget -q -O - $1 |\
@@ -140,12 +142,12 @@ grep 'download/song' | uniq)
         progress=$(($progress + 1))
     done
 
-    [ "$CHANGE_DIR" == 'yes' ] && cd ..
+    [ "$change_dir" == 'yes' ] && cd ..
 } # end method _get_zing
 
 #===============================================================================
 # Recognize music site and download songs
-function _solve_link{
+function _solve_link {
     what_site=$(echo $1 | cut -d '/' -f3)
     case "$what_site" in
         'mp3.zing.vn')
@@ -161,6 +163,7 @@ function _solve_link{
 
 #===============================================================================
 # Begin main
+[ "$#" -le 0 ] && echo -e $HELP && exit 1
 # Option variable
 is_file='no' # download with link in 1 file
 input_file='' # address of file
@@ -178,7 +181,7 @@ do
             is_file='yes'
             count=$((count + 1))
             input_file=$(echo "$@" | cut -d ' ' -f "$count")
-            echo "Get link song from file $input_file";;
+            echo "Get link song from file \"$input_file\"";;
         '-d')
             count=$((count + 1))
             des_dir=$(echo "$@" | cut -d ' ' -f "$count");;
@@ -187,40 +190,27 @@ do
             echo 'Each album will be saved separate directory';;
         *)
             input_link="$arg"
-            echo "Get song from $argnput_link";;
+            echo "Get song from \"$input_link\"";;
     esac
     count=$((count + 1))
 done
 
-[ "$is_file" == 'yes' ] && contentFile=$(cat $input_file)
+[ "$is_file" == 'yes' ] && content_file=$(cat $input_file)
 
 # Go to destination directory
-if [ -d "des_dir" ]; then
-    if cd "$des_dir" ; then
-        echo "Saving to $des_dir"
-    fi
-else
-    if mkdir -p "$des_dir" ; then
-        cd "$des_dir"
-    else
-        echo "Cannot create $des_dir!"
-    fi
-    echo "Saving to $des_dir"
-fi
+( [ -d "$des_dir" ] && cd "$des_dir" && echo "Saving to `pwd`" ) ||\
+( mkdir -p "$des_dir" && cd "$des_dir" && echo "Saving to `pwd`" ) ||\
+echo -e "Cannot create $des_dir!\n Saving to3 `pwd`"
 
-[ -d "$des_dir" ] && cd "$des_dir" && echo "Saving to $des_dir" ||\
-mkdir -p "$des_dir" && cd "$des_dir" && echo "Saving to $des_dir" ||\
-echo -e "Cannot create $des_dir!\n Saving to `pwd'"
 # Get link
 if [ "$is_file" == "yes" ]; then
-    sumLine=$(echo $contentFile | tr ' ' '\n' | wc -l)
-    currentline=1
-    echo $contentFile | tr ' ' '\n' | while read line
+    sum_line=$(echo $content_file | tr ' ' '\n' | wc -l)
+    current_line=1
+    echo $content_file | tr ' ' '\n' | while read line
     do
-        # xu li, goi cac ham
-        echo "Total ($currentline/$sumLine)"
+        echo "Total ($current_line/$sum_line)"
         _solve_link $line
-        currentline=$(($currentline + 1))
+        current_line=$(($current_line + 1))
     done
 else
     _solve_link "$input_link"
