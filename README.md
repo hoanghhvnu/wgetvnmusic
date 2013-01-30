@@ -18,4 +18,7 @@ code: chmod +x wgetvnmusic.sh
 option:
 -t <desDir>: songs will be saved to directory desDir, if not exist, create it.
 -s: option tell that put each album to one directory named by album name.
--v: Verbose - explain what is being done
+-v: verbose (only use without -d option)
+-d <download_manager>: choose download_manager to download songs
+
+!Important: -d option must be last argument

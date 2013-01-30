@@ -1,7 +1,7 @@
 #!/bin/bash
 # Download songs from 3 site: mp3.zing.vn; nhacso.net; nhaccuatui.com
 # Written by: Luoi ST
-# Last modified Dec 22,2012 9:20:00
+# Last modified jan 30,13 12:33:00
 HELP="Usage:\n
 wgetvnmusic [option] <URL_link> | -f <input_file>\n
 option:\n
@@ -9,7 +9,7 @@ option:\n
 -s: Put each album to one directory\n
 -v: Verbose\n
 -d: Download manager with their option
-!important: -d option must be last argument"
+!Important: -d option must be last argument"
 
 function _gcdir() # go/create directory
 {
@@ -140,11 +140,11 @@ function _solve_link { # Recognize music site and download songs
     what_site=$(echo $1 | cut -d '/' -f3)
     case "$what_site" in
         'mp3.zing.vn')
-            _get_zing $1;; # $separate $DOWNLOAD_MANAGER;;
+            _get_zing $1;;
         'nhacso.net')
-            _get_so $1;; # $separate $DOWNLOAD_MANAGER;;
+            _get_so $1;;
         'www.nhaccuatui.com')
-            _get_tui $1;; # $separate $DOWNLOAD_MANAGER;;
+            _get_tui $1;;
         *)
             echo "We do not support download song for this site: $what_site";;
     esac
@@ -180,7 +180,6 @@ not exist, exit script" && exit 2
             separate='yes'
             echo 'Each album will be saved separate directory';;
         '-d')
-            ((count++))
             DOWNLOAD_MANAGER=${!#};;
         '-v')
             if [ "$DOWNLOAD_MANAGER" == 'wget -q' ]; then
