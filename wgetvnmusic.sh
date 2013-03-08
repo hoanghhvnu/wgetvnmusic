@@ -2,12 +2,18 @@
 # Download songs from 3 site: mp3.zing.vn; nhacso.net; nhaccuatui.com
 # Written by: Luoi ST
 # Last modified Dec 12,2012 19:47:00
-HELP="Usage:\n
-$0 [option] <URL_link> | -f <input_file>\n
-option:\n
--d <destination_directory_to_save>\n
--s: Put each album to one directory\n
--v: Verbose"
+HELP="\nUsage:\n
+# Syntax to use
+./wgetvnmusic <URL link> | -f <input file has link> [option] \n
+: URL link is address to listen music \n
+-f <file1>: content of file1 is many URL link, separate by linefeed \n
+option: \n
+-t <desDir>: songs will be saved to directory desDir, if not exist, create it. \n
+-s: option tell that put each album to one directory named by album name. \n
+-v: verbose (only use without -d option) \n
+-d <download_manager>: choose download_manager to download songs \n
+\n
+!Important: -d option must be last argument \n"
 # Define method
 #===============================================================================
 # Script download songs from nhaccuatui.com
