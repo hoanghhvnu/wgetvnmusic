@@ -21,7 +21,7 @@ Clone this repository somewhere
 **Use many times:**
 You must install them into your path, for each user or all user
 
-***For each user:***
+*For each user:*
 Copy file wgetvnmusic into your home directory:
 
     cp wgetvnmusic.sh $HOME/.wgetvnmusic/wgetvnmusic
@@ -30,13 +30,14 @@ Change modify access for it:
 
     chmod +x $HOME/.wgetvnmusic/wgetvnmusic
 
-Export $PATH variable:
+Export `$PATH` variable:
 
     echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile
 
-Ok, enjoy it.
+Done, enjoy it.
 
-***For all user (you must switch to root user):***
+*For all user (you must switch to root user):*
+
 Copy file wgetvnmusic into System path:
 
     cp wgetvnmusic.sh /usr/bin/wgetvnmusic
@@ -64,7 +65,7 @@ option:
 -d <download_manager>: choose download_manager to download songs
 
 
-!Important: -d option must be last argument
+**!Important:** -d option must be last argument
 
 Author: LuoiST
 
