@@ -11,7 +11,8 @@
 
 ## Installation
 Clone this repository somewhere  
-`   $ git clone https://github.com/luoi/wgetvnmusic`  
+
+    $ git clone https://github.com/luoi/wgetvnmusic  
 
 **Use once time:**  
 ` chmod +x wgetvnmusic.sh`  
@@ -26,7 +27,7 @@ Change modify access for it:
 ` chmod +x $HOME/.wgetvnmusic/wgetvnmusic`  
 
 Export $PATH variable:  
-` echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile``  
+` echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile`  
 
 Ok, enjoy it.  
 ***For all user (you must switch to root user):***  
