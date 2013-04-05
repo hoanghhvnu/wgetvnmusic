@@ -180,7 +180,8 @@ not exist, exit script" && exit 2
             separate='yes'
             echo 'Each album will be saved separate directory';;
         '-d')
-            DOWNLOAD_MANAGER=${!#};;
+            DOWNLOAD_MANAGER=${!#}
+            break;;
         '-v')
             if [ "$DOWNLOAD_MANAGER" == 'wget -q' ]; then
                 DOWNLOAD_MANAGER='wget'
