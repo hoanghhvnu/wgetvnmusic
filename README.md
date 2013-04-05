@@ -1,6 +1,7 @@
 # Introduction
 
-**Wgetvnmusic** is a shell script help you download song from three site: 
+**Wgetvnmusic** is a shell script help you download automatically
+ song from three site: 
 [Zing mp3][mp3Zing], 
 [Nhac so][nhacSo], 
 [Nhac cua tui][nhacCuaTui]
