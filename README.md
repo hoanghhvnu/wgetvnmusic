@@ -11,30 +11,30 @@
 
 ## Installation
 Clone this repository somewhere  
->   $ git clone https://github.com/luoi/wgetvnmusic  
+`   $ git clone https://github.com/luoi/wgetvnmusic`  
 
 **Use once time:**  
-> chmod +x wgetvnmusic.sh  
+` chmod +x wgetvnmusic.sh`  
 
 **Use many times:**  
 You must install them into your path, for each user or all user  
 ***For each user:***  
 Copy file wgetvnmusic into your home directory:  
-> cp wgetvnmusic.sh $HOME/.wgetvnmusic/wgetvnmusic  
+` cp wgetvnmusic.sh $HOME/.wgetvnmusic/wgetvnmusic`  
 
 Change modify access for it:  
-> chmod +x $HOME/.wgetvnmusic/wgetvnmusic  
+` chmod +x $HOME/.wgetvnmusic/wgetvnmusic`  
 
 Export $PATH variable:  
-> echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile  
+` echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile``  
 
 Ok, enjoy it.  
 ***For all user (you must switch to root user):***  
 Copy file wgetvnmusic into System path:  
-> cp wgetvnmusic.sh /usr/bin/wgetvnmusic  
+` cp wgetvnmusic.sh /usr/bin/wgetvnmusic`  
 
 Change modify access:  
-> chmod +x /usr/bin/wgetvnmusic  
+` chmod +x /usr/bin/wgetvnmusic`  
 
 Ok, you are done.  
   
