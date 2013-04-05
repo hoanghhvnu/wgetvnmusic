@@ -32,7 +32,7 @@ Change modify access for it:
 
 Export `$PATH` variable:
 
-    echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile
+    echo "\$PATH=\"${PATH};$HOME/.wgetvnmusic\"" >> $HOME/.bash_profile
 
 Done, enjoy it.
 
@@ -49,7 +49,7 @@ Change modify access:
 Ok, you are done.
 
 ## Syntax to use
-./wgetvnmusic <URL link> | -f < input file has link> [option]
+>./wgetvnmusic <URL link> | -f < input file has link> [option]
 
 : URL link is address to listen music
 
