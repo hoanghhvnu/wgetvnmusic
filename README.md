@@ -20,6 +20,7 @@ Clone this repository somewhere
 
 **Use many times:**
 You must install them into your path, for each user or all user
+
 ***For each user:***
 Copy file wgetvnmusic into your home directory:
 
@@ -34,6 +35,7 @@ Export $PATH variable:
     echo "\$PATH=${PATH};$HOME/.wgetvnmusic" >> $HOME/.bash_profile
 
 Ok, enjoy it.
+
 ***For all user (you must switch to root user):***
 Copy file wgetvnmusic into System path:
 
