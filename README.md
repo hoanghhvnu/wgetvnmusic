@@ -18,7 +18,6 @@ Shell script download automatically music file from three website:
 # Usage
 
 ```
-
     wgetvnmusic [OPTION]... [FILE]
 
     OPTION:
@@ -49,7 +48,6 @@ Shell script download automatically music file from three website:
     cd wgetvnmusic/
     chmod +x install.sh
     [sudo] ./install.sh
-
 ```
 
 * If run script `install.sh` without `sudo`, wgetvnmusic will be installed for user who ran script.
