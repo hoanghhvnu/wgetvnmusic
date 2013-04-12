@@ -1,7 +1,7 @@
-# Introduction
 
-**Wgetvnmusic** is a shell script help you download automatically
- song from three site: 
+# Wgetvnmusic
+
+Shell script download automatically music file from three website: 
 [Zing mp3][mp3Zing], 
 [Nhac so][nhacSo], 
 [Nhac cua tui][nhacCuaTui]
@@ -10,64 +10,48 @@
 [nhacso]: http://nhacso.net
 [nhacCuaTui]: http://nhaccuatui.com
 
+# Feature
+
+* Download a song, an album, a playlist or many of them
+* Support three biggest music website in Vietnam
+
+# Usage
+
+```
+
+    wgetvnmusic [OPTION]... [FILE]...
+
+    OPTION:
+    -f <file>
+        get link music songs from file instead of URL link
+    -t <directory>
+        save songs to indicate directory, auto create if not exist
+    -s
+        each album (playlist) will be saved in separate directory
+    -v
+        display detail process of script
+    -d <command>
+        use other download manager (DM) intead of default DM
+        (can use with it's opion)
+    **!Important:** -d option must be last argument
+
+    FILE:
+        is URL link of songs
+        OR
+        a file which it's content is list of URL link songs
+        (when "-f" option to be used)
+```
+
 ## Installation
 Clone this repository somewhere
 
-    $ git clone https://github.com/luoi/wgetvnmusic
+```
+    git clone https://github.com/luoi/wgetvnmusic
+    cd wgetvnmusic/
+    chmod +x install.sh
+    [sudo] ./install.sh
 
-**Use once time:**
+```
 
-    chmod +x wgetvnmusic.sh
-
-**Use many times:**
-You must install them into your path, for each user or all user
-
-*For each user:*
-Copy file wgetvnmusic into your home directory:
-
-    cp wgetvnmusic.sh $HOME/.wgetvnmusic/wgetvnmusic
-
-Change modify access for it:
-
-    chmod +x $HOME/.wgetvnmusic/wgetvnmusic
-
-Export `$PATH` variable:
-
-    echo "\$PATH=\"${PATH};$HOME/.wgetvnmusic\"" >> $HOME/.bash_profile
-
-Done, enjoy it.
-
-*For all user (you must switch to root user):*
-
-Copy file wgetvnmusic into System path:
-
-    cp wgetvnmusic.sh /usr/bin/wgetvnmusic
-
-Change modify access:
-
-    chmod +x /usr/bin/wgetvnmusic
-
-Ok, you are done.
-
-## Syntax to use
->./wgetvnmusic <URL link> | -f < input file has link> [option]
-
-: URL link is address to listen music
-
--f <file1>: content of file1 is many URL link, separate by linefeed
-option:
-
--t <desDir>: songs will be saved to directory desDir, if not exist, create it.
-
--s: option tell that put each album to one directory named by album name.
-
--v: verbose (only use without -d option)
-
--d <download_manager>: choose download_manager to download songs
-
-
-**!Important:** -d option must be last argument
-
-Author: LuoiST
-
-Email: faithonour@gmail.com
+* If run script `install.sh` without `sudo`, xbm will be installed for user who ran script.
+* If run script with `sudo`, it's installed for all users (just enable for root).

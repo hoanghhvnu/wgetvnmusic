@@ -1,0 +1,11 @@
+Wellcome to wgetvnmusic!
+
+To install wgetvnmusic on your system for only you, run:
+    ./install
+
+Install for all user, run:
+    sudo ./install              (you have to enter password to excute command)
+
+
+If you want to use portable, run "wgetvnmusic.sh" file:
+    ./wgetvnmusic
