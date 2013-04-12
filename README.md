@@ -19,7 +19,7 @@ Shell script download automatically music file from three website:
 
 ```
 
-    wgetvnmusic [OPTION]... [FILE]...
+    wgetvnmusic [OPTION]... [FILE]
 
     OPTION:
     -f <file>
@@ -43,7 +43,6 @@ Shell script download automatically music file from three website:
 ```
 
 ## Installation
-Clone this repository somewhere
 
 ```
     git clone https://github.com/luoi/wgetvnmusic
@@ -53,5 +52,12 @@ Clone this repository somewhere
 
 ```
 
-* If run script `install.sh` without `sudo`, xbm will be installed for user who ran script.
+* If run script `install.sh` without `sudo`, wgetvnmusic will be installed for user who ran script.
 * If run script with `sudo`, it's installed for all users (just enable for root).
+
+Also use portable:
+```
+    chmod +x wgetvnmusic.sh
+    ./wgetvnmusic.sh
+
+```
