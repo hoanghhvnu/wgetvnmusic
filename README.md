@@ -1,5 +1,5 @@
 
-# Wgetvnmusic
+## Wgetvnmusic
 
 Shell script download automatically music file from three website: 
 [Zing mp3][mp3Zing], 
@@ -10,12 +10,12 @@ Shell script download automatically music file from three website:
 [nhacso]: http://nhacso.net
 [nhacCuaTui]: http://nhaccuatui.com
 
-# Feature
+## Feature
 
 * Download a song, an album, a playlist or many of them
 * Support three biggest music website in Vietnam
 
-# Usage
+## Usage
 
 ```
     wgetvnmusic [OPTION]... [FILE]
@@ -37,7 +37,7 @@ Shell script download automatically music file from three website:
     FILE:
         is URL link of songs
         OR
-        a file which it's content is list of URL link songs
+        a file which it's content is list of URL link songs, separate each link with `linefeed`
         (when "-f" option to be used)
 ```
 
