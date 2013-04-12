@@ -62,7 +62,7 @@ cut -d '[' -f3)
     done
     [ "$change_dir" == 'yes' ] && cd ..
 } # end method _get_tui
-#=======================================================================
+#==============================================================================
 # Script download songs from nhacso.net
 function _get_so {
     #$1 is link song or album
@@ -120,7 +120,7 @@ cut -d '/' -f5 | cut -d '.' -f1)
     done
     [ "$change_dir" == 'yes' ] && cd ..
 } # end method _get_so
-#=======================================================================
+#===============================================================================
 # Script download songs from mp3.zing.vn
 function _get_zing {
     #$1 is link song or album
